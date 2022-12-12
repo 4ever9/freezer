@@ -104,7 +104,7 @@ func (f *Freezer) PinJson(content map[string]interface{}) (string, error) {
 		return "", err
 	}
 
-	return ret.IpfsHash, nil
+	return fmt.Sprintf("ipfs://%s", ret.IpfsHash), nil
 }
 
 func (f *Freezer) PinERC1155(content map[string]interface{}, file io.Reader) (string, error) {
