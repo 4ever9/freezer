@@ -107,18 +107,18 @@ func (f *Freezer) PinJson(content map[string]interface{}) (string, error) {
 	return fmt.Sprintf("ipfs://%s", ret.IpfsHash), nil
 }
 
-func (f *Freezer) PinERC1155(content map[string]interface{}, file io.Reader) (string, error) {
+func (f *Freezer) PinERC1155(content map[string]interface{}, file io.Reader) (string, string, error) {
 	assetCid, err := f.PinFile(file)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	content["image"] = assetCid
 
 	cid, err := f.PinJson(content)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
-	return cid, err
+	return cid, assetCid, err
 }
